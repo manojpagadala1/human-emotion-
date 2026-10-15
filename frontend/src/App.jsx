@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import * as faceapi from "@vladmandic/face-api";
 import "./styles.css";
 
-const API = "http://127.0.0.1:5000/api";
+const API = "/api";
 const MODELS = "https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model";
 const LABELS = { happy: "Happy", sad: "Sad", crying: "Crying", angry: "Angry", fearful: "Fearful", disgusted: "Disgusted", surprised: "Surprised", neutral: "Neutral" };
 const EMOJI = { happy: "😊", sad: "😢", crying: "😭", angry: "😠", fearful: "😨", disgusted: "😖", surprised: "😲", neutral: "😐" };

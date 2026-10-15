@@ -8,6 +8,9 @@ A React + JavaScript camera interface estimates visible facial expressions with 
 - Save a prediction to SQLite history, view prior saved estimates, and clear history.
 - Camera frames are processed in the browser and are not uploaded to the backend.
 
+## Live demo
+[Open the Vercel demo](https://humanemotioncameraproject.vercel.app/).
+
 ## Requirements
 Python 3.10+, Node.js/npm, a modern browser. Camera access works on `localhost` or HTTPS. Model files are loaded from jsDelivr, so internet access is required.
 
@@ -30,6 +33,9 @@ npm install
 npm run dev
 ```
 Open the local URL printed by Vite, usually `http://localhost:5173`.
+
+## Deploy to Vercel
+Import this repository into Vercel and deploy from the repository root. The Vercel build script installs and builds the frontend, then serves it alongside the Flask API. SQLite history is stored in temporary serverless storage and may not persist between invocations.
 
 ## Honest project explanation
 This version uses a pre-trained facial-expression model, not a model trained by the student. Facial-expression software cannot reliably know a person's actual inner feelings; treat the displayed category as an estimate. Get permission before using a camera. No face identity recognition is performed.

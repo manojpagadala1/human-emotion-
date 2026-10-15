@@ -1,12 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import sqlite3
+import os
 from pathlib import Path
 from datetime import datetime, timezone
+from flask import send_from_directory
 
 app = Flask(__name__)
 CORS(app)
-DB_PATH = Path(__file__).with_name("emotions.db")
+DB_PATH = Path("/tmp/emotions.db") if os.getenv("VERCEL") else Path(__file__).with_name("emotions.db")
+PUBLIC_DIR = Path(__file__).resolve().parent.parent / "public"
 ALLOWED = {"happy", "sad", "crying", "angry", "fearful", "disgusted", "surprised", "neutral"}
 
 def connect_db():
@@ -22,6 +25,16 @@ def init_db():
             confidence REAL NOT NULL,
             created_at TEXT NOT NULL
         )""")
+
+init_db()
+
+@app.get("/")
+def index():
+    return send_from_directory(PUBLIC_DIR, "index.html")
+
+@app.get("/assets/<path:filename>")
+def assets(filename):
+    return send_from_directory(PUBLIC_DIR / "assets", filename)
 
 @app.get("/api/health")
 def health():
@@ -57,5 +70,4 @@ def clear_history():
     return jsonify({"message": "History cleared"})
 
 if __name__ == "__main__":
-    init_db()
     app.run(host="127.0.0.1", port=5000, debug=True)
